@@ -2,7 +2,7 @@
 from pathlib import Path
 from sklearn.model_selection import train_test_split
 import shutil
-# from PIL import Image
+from PIL import Image
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
@@ -25,7 +25,7 @@ def gen_category_to_file(data_path: str, tofile_path: str):
         f.write(names)
 
 
-def load_data(data_path: str, test_size=0.2, random_state=42, info=False):
+def load_data(data_path: str, test_size=0.2, random_state=42, info=False, target_size=(125, 125)):
     """Load data from file.
     
     Args:
@@ -41,7 +41,7 @@ def load_data(data_path: str, test_size=0.2, random_state=42, info=False):
     for d in Path(data_path).iterdir():
         if info:
             print('Load image: ' + d.name)
-        imgs.append(img_to_array(load_img(d)))
+        imgs.append(img_to_array(load_img(d, target_size=target_size)))
     data = np.array(imgs)
     train_data, test_data = train_test_split(
         data, test_size=test_size, random_state=random_state)
