@@ -1,10 +1,9 @@
 """Plot module."""
 import matplotlib.pyplot as plt
 from keras.callbacks import History
-from keras.callbacks import TensorBoard
 
 
-def plot_history(history: History):
+def plot_keras_history(history: History):
     """Plot history."""
     acc = history.history['acc']
     val_acc = history.history['val_acc']
@@ -14,7 +13,7 @@ def plot_history(history: History):
     epochs = range(1, len(acc) + 1)
 
     plt.plot(epochs, acc, 'bo', label='Training acc')
-    plt.plot(epochs, val_acc, 'b', label='Validation acc')
+    plt.plot(epochs, val_acc, 'y', label='Validation acc')
     plt.title('Training and validation accuracy')
     plt.legend()
 
@@ -28,15 +27,24 @@ def plot_history(history: History):
     plt.show()
 
 
-def get_tensorboard_config(log_dir: str):
-    """Use tensorboard config."""
-    return [
-        TensorBoard(
-            # Log files will be written at this location
-            log_dir=log_dir,
-            # We will record activation histograms every 1 epoch
-            histogram_freq=1,
-            # We will record embedding data every 1 epoch
-            embeddings_freq=1,
-        )
-    ]
+def plot_pytorch_history(history: dict):
+    train_acc = history['acc']['train']
+    val_acc = history['acc']['val']
+    train_loss = history['loss']['train']
+    val_loss = history['loss']['val']
+
+    epochs = range(1, len(train_acc) + 1)
+
+    plt.plot(epochs, train_acc, 'bo-', label='training acc')
+    plt.plot(epochs, val_acc, 'y', label='val acc')
+    plt.title('training and val acc')
+    plt.legend()
+
+    plt.figure()
+
+    plt.plot(epochs, train_loss, 'bo-', label='training loss')
+    plt.plot(epochs, val_loss, 'y', label='val loss')
+    plt.title('training and val loss')
+    plt.legend()
+
+    plt.show()

@@ -1,7 +1,6 @@
 """Generate image data for algo.'s input."""
 from pathlib import Path
 from sklearn.model_selection import train_test_split
-import shutil
 from PIL import Image
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
